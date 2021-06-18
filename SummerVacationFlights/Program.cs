@@ -222,19 +222,23 @@ namespace SummerVacationFlights
                 stopwatch.Stop();
 
                 TimeSpan ts = stopwatch.Elapsed;
-                Console.WriteLine("Elapsed Time is {0:00}:{1:00}:{2:00}.{3}",
-                                ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
 
-                //sorting data by COVID cases and prices
+                //sorting data by COVID cases, countries and prices
                 flightResults.Sort((d1, d2) =>
                 {
                     int res = d1.ActiveCovidCases.CompareTo(d2.ActiveCovidCases);
+                    if (res == 0)
+                        res = d1.DestinationCountry.CompareTo(d2.DestinationCountry);
                     if (res == 0)
                         res = d1.Price.CompareTo(d2.Price);
                     return res;
                 });
 
                 PrintResult(flightResults);
+
+                Console.WriteLine();
+                Console.WriteLine("Elapsed Time is {0:00}:{1:00}:{2:00}.{3}",
+                                ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
 
                 Console.WriteLine();
                 Console.WriteLine("Press '1' to process flights quickly");
